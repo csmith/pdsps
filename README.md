@@ -31,6 +31,10 @@ services:
     image: your-pds-image
 ```
 
+## Credits
+
+Behaviour based on [this gist by mary-ext](https://gist.github.com/mary-ext/6e27b24a83838202908808ad528b3318).
+
 ## Provenance
 
 This project was primarily created with Claude Code, but with a strong guiding
