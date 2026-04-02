@@ -20,7 +20,7 @@ UPSTREAM=https://your-pds.example.com ./pdsps
 ```yaml
 services:
   pdsps:
-    image: pdsps
+    image: ghcr.io/csmith/pdsps:latest
     environment:
       - UPSTREAM=http://pds:2583
       - PORT=2583
