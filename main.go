@@ -36,7 +36,7 @@ func main() {
 			w.Header().Set("Access-Control-Allow-Headers", "authorization,dpop,atproto-accept-labelers,atproto-proxy")
 			w.Header().Set("Access-Control-Allow-Origin", "*")
 			w.WriteHeader(http.StatusOK)
-			_, _ = w.Write([]byte(`{"lastInitiatedAt":"2025-07-14T14:22:43.912Z","status":"assured"}`))
+			_, _ = w.Write([]byte(`{"state":{"lastInitiatedAt":"2025-07-14T14:22:43.912Z","status":"assured","access":"full"},"metadata":{"accountCreatedAt":"2022-11-17T00:35:16.391Z"}}`))
 			return
 		}
 
