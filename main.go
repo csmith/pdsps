@@ -31,7 +31,7 @@ func main() {
 	proxy := httputil.NewSingleHostReverseProxy(upstreamURL)
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		if r.URL.Path == "/xrpc/app.bsky.unspecced.getAgeAssuranceState" {
+		if r.URL.Path == "/xrpc/app.bsky.unspecced.getAgeAssuranceState" || r.URL.Path == "/xrpc/app.bsky.ageassurance.getState" {
 			w.Header().Set("Content-Type", "application/json")
 			w.Header().Set("Access-Control-Allow-Headers", "authorization,dpop,atproto-accept-labelers,atproto-proxy")
 			w.Header().Set("Access-Control-Allow-Origin", "*")
