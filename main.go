@@ -13,7 +13,7 @@ import (
 
 var (
 	upstream = flag.String("upstream", "", "URL of the upstream PDS server")
-	port    = flag.Int("port", 8080, "Port to listen on")
+	port     = flag.Int("port", 8080, "Port to listen on")
 )
 
 func main() {
@@ -30,18 +30,27 @@ func main() {
 
 	proxy := httputil.NewSingleHostReverseProxy(upstreamURL)
 
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		if r.URL.Path == "/xrpc/app.bsky.unspecced.getAgeAssuranceState" || r.URL.Path == "/xrpc/app.bsky.ageassurance.getState" {
-			w.Header().Set("Content-Type", "application/json")
-			w.Header().Set("Access-Control-Allow-Headers", "authorization,dpop,atproto-accept-labelers,atproto-proxy")
-			w.Header().Set("Access-Control-Allow-Origin", "*")
-			w.WriteHeader(http.StatusOK)
-			_, _ = w.Write([]byte(`{"state":{"lastInitiatedAt":"2025-07-14T14:22:43.912Z","status":"assured","access":"full"},"metadata":{"accountCreatedAt":"2022-11-17T00:35:16.391Z"}}`))
-			return
-		}
+	http.HandleFunc(
+		"/",
+		func(w http.ResponseWriter, r *http.Request) {
+			if r.URL.Path == "/xrpc/app.bsky.unspecced.getAgeAssuranceState" ||
+				r.URL.Path == "/xrpc/app.bsky.ageassurance.getState" {
+				w.Header().Set("Content-Type", "application/json")
+				w.Header().Set("Access-Control-Allow-Headers", "authorization,dpop,atproto-accept-labelers,atproto-proxy")
+				w.Header().Set("Access-Control-Allow-Origin", "*")
+				w.WriteHeader(http.StatusOK)
+				_, _ = w.Write(
+					[]byte(
+						`{"state":{"lastInitiatedAt":"2025-07-14T14:22:43.912Z","status":"assured","access":"full"},` +
+							`"metadata":{"accountCreatedAt":"2022-11-17T00:35:16.391Z"}}`,
+					),
+				)
+				return
+			}
 
-		proxy.ServeHTTP(w, r)
-	})
+			proxy.ServeHTTP(w, r)
+		},
+	)
 
 	addr := fmt.Sprintf(":%d", *port)
 	log.Println("Listening on", addr)
