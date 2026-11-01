@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.2 - 2026-11-01
+
+### Fixed
+
+- Allow the `x-atproto-device-id` and `x-atproto-session-id` headers in age assurance responses, which current Bluesky clients send
+
 ## 1.0.1 - 2026-10-23
 
 ### Changed

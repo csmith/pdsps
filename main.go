@@ -36,7 +36,10 @@ func main() {
 			if r.URL.Path == "/xrpc/app.bsky.unspecced.getAgeAssuranceState" ||
 				r.URL.Path == "/xrpc/app.bsky.ageassurance.getState" {
 				w.Header().Set("Content-Type", "application/json")
-				w.Header().Set("Access-Control-Allow-Headers", "authorization,dpop,atproto-accept-labelers,atproto-proxy")
+				w.Header().Set(
+					"Access-Control-Allow-Headers",
+					"authorization,dpop,atproto-accept-labelers,atproto-proxy,x-atproto-device-id,x-atproto-session-id",
+				)
 				w.Header().Set("Access-Control-Allow-Origin", "*")
 				w.WriteHeader(http.StatusOK)
 				_, _ = w.Write(
