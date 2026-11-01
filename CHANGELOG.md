@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### Changed
+
+- Log with structured logging, configurable with the new `log.level` and `log.format` flags
+
 ## 1.0.2 - 2026-11-01
 
 ### Fixed

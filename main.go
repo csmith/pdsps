@@ -3,12 +3,14 @@ package main
 import (
 	"flag"
 	"fmt"
-	"log"
+	"log/slog"
 	"net/http"
 	"net/http/httputil"
 	"net/url"
+	"os"
 
 	"github.com/csmith/envflag/v2"
+	"github.com/csmith/slogflags"
 )
 
 var (
@@ -18,14 +20,17 @@ var (
 
 func main() {
 	envflag.Parse()
+	_ = slogflags.Logger(slogflags.WithSetDefault(true))
 
 	if *upstream == "" {
-		log.Fatal("upstream is required")
+		slog.Error("upstream is required")
+		os.Exit(1)
 	}
 
 	upstreamURL, err := url.Parse(*upstream)
 	if err != nil {
-		log.Fatalf("invalid upstream URL: %v", err)
+		slog.Error("Invalid upstream URL", "error", err)
+		os.Exit(1)
 	}
 
 	proxy := httputil.NewSingleHostReverseProxy(upstreamURL)
@@ -56,6 +61,9 @@ func main() {
 	)
 
 	addr := fmt.Sprintf(":%d", *port)
-	log.Println("Listening on", addr)
-	log.Fatal(http.ListenAndServe(addr, nil))
+	slog.Info("Listening", "addr", addr)
+	if err := http.ListenAndServe(addr, nil); err != nil {
+		slog.Error("Server failed", "error", err)
+		os.Exit(1)
+	}
 }

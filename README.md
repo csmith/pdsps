@@ -14,6 +14,8 @@ UPSTREAM=https://your-pds.example.com ./pdsps
 |------|---------|---------|-------------|
 | `-upstream` | `UPSTREAM` | (required) | URL of the upstream PDS server |
 | `-port` | `PORT` | `8080` | Port to listen on |
+| `-log.level` | `LOG_LEVEL` | `info` | Lowest level of logs to output (`debug`, `info`, `warn`, `error`) |
+| `-log.format` | `LOG_FORMAT` | `text` | Format of log output (`text` or `json`) |
 
 ### Docker Compose
 
