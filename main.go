@@ -8,6 +8,7 @@ import (
 	"net/http/httputil"
 	"net/url"
 	"os"
+	"time"
 
 	"github.com/csmith/envflag/v2"
 	"github.com/csmith/slogflags"
@@ -62,7 +63,12 @@ func main() {
 
 	addr := fmt.Sprintf(":%d", *port)
 	slog.Info("Listening", "addr", addr)
-	if err := http.ListenAndServe(addr, nil); err != nil {
+	server := &http.Server{
+		Addr:              addr,
+		ReadHeaderTimeout: 10 * time.Second,
+		IdleTimeout:       120 * time.Second,
+	}
+	if err := server.ListenAndServe(); err != nil {
 		slog.Error("Server failed", "error", err)
 		os.Exit(1)
 	}

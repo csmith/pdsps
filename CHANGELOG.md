@@ -6,6 +6,10 @@
 
 - Log with structured logging, configurable with the new `log.level` and `log.format` flags
 
+### Fixed
+
+- Time out connections that are slow to send request headers or sit idle, so stalled clients can't exhaust the server
+
 ## 1.0.2 - 2026-11-01
 
 ### Fixed
