@@ -9,6 +9,7 @@
 ### Fixed
 
 - Time out connections that are slow to send request headers or sit idle, so stalled clients can't exhaust the server
+- Forward requests with unclean paths (such as `//xrpc/foo`) to the PDS instead of redirecting them
 
 ## 1.0.2 - 2026-11-01
 

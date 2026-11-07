@@ -36,8 +36,7 @@ func main() {
 
 	proxy := httputil.NewSingleHostReverseProxy(upstreamURL)
 
-	http.HandleFunc(
-		"/",
+	handler := http.HandlerFunc(
 		func(w http.ResponseWriter, r *http.Request) {
 			if r.URL.Path == "/xrpc/app.bsky.unspecced.getAgeAssuranceState" ||
 				r.URL.Path == "/xrpc/app.bsky.ageassurance.getState" {
@@ -65,6 +64,7 @@ func main() {
 	slog.Info("Listening", "addr", addr)
 	server := &http.Server{
 		Addr:              addr,
+		Handler:           handler,
 		ReadHeaderTimeout: 10 * time.Second,
 		IdleTimeout:       120 * time.Second,
 	}
