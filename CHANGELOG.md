@@ -1,10 +1,11 @@
 # Changelog
 
-## Unreleased
+## 1.1.0 - 2026-11-12
 
 ### Changed
 
 - Log with structured logging, configurable with the new `log.level` and `log.format` flags
+- Update to Go 1.27.4
 
 ### Fixed
 
