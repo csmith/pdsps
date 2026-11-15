@@ -2,6 +2,9 @@
 
 A reverse proxy that sits in front of a Bluesky PDS and returns a fixed "assured" response for `getAgeAssuranceState`, proxying all other requests to the upstream.
 
+pdsps serves plain HTTP, so it must run behind a TLS-terminating reverse proxy
+such as [centauri](https://github.com/csmith/centauri).
+
 ## Usage
 
 ```
@@ -26,8 +29,8 @@ services:
     environment:
       - UPSTREAM=http://pds:2583
       - PORT=2583
-    ports:
-      - "2583:2583"
+    expose:
+      - "2583"
 
   pds:
     image: your-pds-image
